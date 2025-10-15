@@ -55,6 +55,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header-flex {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -66,14 +67,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header-logo {
-    flex-shrink: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
 }
 
-.logo-text {
-    font-size: 1.875rem; /* text-3xl */
-    font-weight: 300; /* font-light */
-    letter-spacing: 0.3em; /* tracking-[0.3em] */
-    color: #fff;
+.logo-image {
+    height: 9rem; /* Adjust height to match the original text size */
+    width: auto;
+    max-height: 10rem; /* Prevent logo from being too large */
 }
 
 .header-nav {
@@ -81,7 +84,8 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 2rem; /* space-x-8 */
+    gap: 1.5rem; /* Reduced gap for better spacing */
+    padding-right: 1rem; /* Add some padding for better visual balance */
 }
 
 .desktop-nav {
@@ -118,6 +122,24 @@ h1, h2, h3, h4, h5, h6 {
 
 .cart-btn:hover {
     color: #fff;
+}
+
+.theme-toggle-btn {
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.2s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 0.75rem; /* Reduced margin for tighter spacing */
+}
+
+.theme-toggle-btn:hover {
+    color: #fff;
+}
+
+.sun-icon, .moon-icon {
+    transition: opacity 0.3s ease;
 }
 
 .mobile-menu-btn {
@@ -172,7 +194,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, #000, #18181b, #000); /* from-black via-zinc-900 to-black */
+    background: var(--hero-bg);
 }
 
 .hero-bg {
@@ -181,6 +203,11 @@ h1, h2, h3, h4, h5, h6 {
     background-image: url('https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=1920');
     background-size: cover;
     background-position: center;
+    opacity: 0.2;
+}
+
+/* Ensure hero background opacity is consistent in both themes */
+[data-theme="light"] .hero-bg {
     opacity: 0.2;
 }
 
@@ -572,4 +599,154 @@ h1, h2, h3, h4, h5, h6 {
 
 .no-content .text-sm {
     font-size: 0.875rem;
+}
+
+/* Light Mode Styles */
+:root {
+    --bg-primary: #000;
+    --bg-secondary: #0a0a0a;
+    --bg-tertiary: #18181b;
+    --text-primary: #fff;
+    --text-secondary: rgba(255, 255, 255, 0.8);
+    --text-muted: rgba(255, 255, 255, 0.6);
+    --text-faded: rgba(255, 255, 255, 0.4);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --hero-bg: linear-gradient(to bottom, #000, #18181b, #000);
+}
+
+[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #e9ecef;
+    --text-primary: #000;
+    --text-secondary: rgba(0, 0, 0, 0.8);
+    --text-muted: rgba(0, 0, 0, 0.6);
+    --text-faded: rgba(0, 0, 0, 0.4);
+    --border-color: rgba(0, 0, 0, 0.1);
+    --hero-bg: linear-gradient(to bottom, #6c757d, #495057);
+}
+
+/* Apply theme variables */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.header {
+    background-color: rgba(0, 0, 0, 0.95);
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="light"] .header {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.logo-text, .hero-title, .hero-subtitle, .section-title, .product-name, .collection-name, .footer-logo, .footer-heading, .copyright {
+    color: var(--text-primary);
+}
+
+.nav-link, .mobile-nav-link, .cart-btn, .theme-toggle-btn, .mobile-menu-btn {
+    color: var(--text-secondary);
+}
+
+.nav-link:hover, .mobile-nav-link:hover, .cart-btn:hover, .theme-toggle-btn:hover, .mobile-menu-btn:hover {
+    color: var(--text-primary);
+}
+
+.hero {
+    background: var(--hero-bg);
+}
+
+.featured-section {
+    background-color: var(--bg-primary);
+}
+
+.collections-section {
+    background-color: var(--bg-secondary);
+}
+
+.footer {
+    background-color: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-description, .footer-link, .social-link, .newsletter-text {
+    color: var(--text-muted);
+}
+
+.footer-link:hover, .social-link:hover {
+    color: var(--text-primary);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border-color);
+}
+
+.product-price, .collection-description {
+    color: var(--text-muted);
+}
+
+.product-image-container, .collection-image-container {
+    background-color: var(--bg-tertiary);
+}
+
+.loading, .no-content {
+    color: var(--text-faded);
+}
+
+/* Theme toggle button specific styles */
+[data-theme="light"] .theme-toggle-btn {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .theme-toggle-btn:hover {
+    color: #000;
+}
+
+[data-theme="light"] .cart-btn {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .cart-btn:hover {
+    color: #000;
+}
+
+[data-theme="light"] .mobile-menu-btn {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .mobile-menu-btn:hover {
+    color: #000;
+}
+
+[data-theme="light"] .nav-link {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .nav-link:hover {
+    color: #000;
+}
+
+[data-theme="light"] .mobile-nav-link {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .mobile-nav-link:hover {
+    color: #000;
+}
+
+[data-theme="light"] .mobile-menu {
+    background-color: #ffffff;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Hero button styles for light mode */
+[data-theme="light"] .hero-btn {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: #000;
+}
+
+[data-theme="light"] .hero-btn:hover {
+    background-color: #000;
+    color: #fff;
 }

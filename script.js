@@ -77,8 +77,51 @@ const staticCollections = [
     }
 ];
 
-// Mobile menu functionality
+// Theme functionality
+function initTheme() {
+    const themeToggle = document.getElementById('themeToggle');
+    const sunIcon = themeToggle.querySelector('.sun-icon');
+    const moonIcon = themeToggle.querySelector('.moon-icon');
+    const logoImage = document.getElementById('logoImage');
+    const body = document.body;
+    
+    // Get saved theme or default to dark
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    
+    // Apply saved theme
+    applyTheme(savedTheme);
+    
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        applyTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+    
+    function applyTheme(theme) {
+        body.setAttribute('data-theme', theme);
+        
+        // Update logo based on theme
+        if (theme === 'light') {
+            logoImage.src = 'PICS/lalas logo lm.png';
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+        } else {
+            logoImage.src = 'PICS/lalas logo dm.png';
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        }
+    }
+}
+
+// Main initialization
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize theme
+    initTheme();
+    
+    // Initialize mobile menu
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     const menuIcon = mobileMenuBtn.querySelector('.menu-icon');
@@ -108,11 +151,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Load featured products
-    loadFeaturedProducts();
+    // Initialize smooth scrolling
+    initSmoothScrolling();
     
-    // Load collections
-    loadCollections();
+    // Initialize with loading simulation
+    simulateLoading();
 });
 
 function loadFeaturedProducts() {
@@ -179,7 +222,7 @@ function loadCollections() {
 }
 
 // Smooth scrolling for anchor links
-document.addEventListener('DOMContentLoaded', function() {
+function initSmoothScrolling() {
     const links = document.querySelectorAll('a[href^="#"]');
     
     links.forEach(link => {
@@ -197,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+}
 
 // Add loading states simulation (optional - for demonstration)
 function simulateLoading() {
@@ -219,8 +262,3 @@ function simulateLoading() {
         loadCollections();
     }, 500);
 }
-
-// Initialize with loading simulation
-document.addEventListener('DOMContentLoaded', function() {
-    simulateLoading();
-});
