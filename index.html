@@ -3,89 +3,38 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LALAS Clothing E-commerce Website</title>
+    <title>LALAS</title>
+    <link rel="icon" type="image/png" href="PICS/Lalas Logo Name.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="components.js"></script>
   </head>
   <body>
     <!-- Header -->
-    <header class="header">
-        <div class="header-container">
-            <div class="header-flex">
-                <div class="header-spacer"></div>
-                
-                <div class="header-logo">
-                    <img src="PICS/lalas logo dm.png" alt="LALAS" class="logo-image" id="logoImage">
-                </div>
-                
-                <div class="header-nav">
-                    <nav class="desktop-nav">
-                        <a href="#new" class="nav-link">NEW</a>
-                        <a href="#collections" class="nav-link">COLLECTIONS</a>
-                        <a href="#about" class="nav-link">ABOUT</a>
-                    </nav>
-                    
-                    <button class="theme-toggle-btn" id="themeToggle">
-                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="5"></circle>
-                            <line x1="12" y1="1" x2="12" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="23"></line>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            <line x1="1" y1="12" x2="3" y2="12"></line>
-                            <line x1="21" y1="12" x2="23" y2="12"></line>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                        </svg>
-                        <svg class="moon-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                        </svg>
-                    </button>
-                    
-                    <button class="cart-btn">
-                        <svg class="cart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <path d="M16 10a4 4 0 0 1-8 0"></path>
-                        </svg>
-                    </button>
-                    
-                    <button class="mobile-menu-btn" id="mobileMenuBtn">
-                        <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <line x1="3" y1="12" x2="21" y2="12"></line>
-                            <line x1="3" y1="18" x2="21" y2="18"></line>
-                        </svg>
-                        <svg class="close-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="mobile-menu hidden" id="mobileMenu">
-            <nav class="mobile-nav">
-                <a href="#new" class="mobile-nav-link">NEW</a>
-                <a href="#collections" class="mobile-nav-link">COLLECTIONS</a>
-                <a href="#about" class="mobile-nav-link">ABOUT</a>
-            </nav>
-        </div>
-    </header>
+    <div id="nav-container"></div>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
             <h2 class="hero-title">LALAS</h2>
-            <p class="hero-subtitle">TIMELESS ELEGANCE</p>
+            <p class="hero-subtitle">PREMIUM HOODIES, SHIRTS & JERSEYS</p>
             <button class="hero-btn">EXPLORE COLLECTION</button>
         </div>
         <div class="hero-scroll-indicator">
             <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="section-container">
+            <h2 class="section-title">SHOP BY CATEGORY</h2>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Categories will be loaded here via JavaScript -->
+            </div>
         </div>
     </section>
 
@@ -94,6 +43,26 @@
         <div class="section-container">
             <h2 class="section-title">FEATURED</h2>
             <div class="products-grid" id="featuredProducts">
+                <!-- Products will be loaded here via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Section -->
+    <section id="new" class="new-arrivals-section">
+        <div class="section-container">
+            <h2 class="section-title">NEW ARRIVALS</h2>
+            <div class="products-grid" id="newArrivalsProducts">
+                <!-- Products will be loaded here via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Sellers Section -->
+    <section class="best-sellers-section">
+        <div class="section-container">
+            <h2 class="section-title">BEST SELLERS</h2>
+            <div class="products-grid" id="bestSellersProducts">
                 <!-- Products will be loaded here via JavaScript -->
             </div>
         </div>
@@ -109,14 +78,33 @@
         </div>
     </section>
 
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="section-container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">SUBSCRIBE TO OUR NEWSLETTER</h2>
+                <p class="newsletter-description">Subscribe to our newsletter and get exclusive offers on new arrivals</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="input-group">
+                        <input required="" type="text" name="text" autocomplete="off" class="input">
+                        <label class="user-label">Enter your email</label>
+                    </div>
+                    <button type="submit" class="newsletter-btn">SUBSCRIBE</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="footer">
+    <div id="footer-container"></div>
+    <!-- Old footer placeholder (will be removed after component loads) -->
+    <footer class="footer" style="display: none;">
         <div class="footer-container">
             <div class="footer-grid">
                 <div class="footer-brand">
                     <h3 class="footer-logo">LALAS</h3>
                     <p class="footer-description">
-                        Timeless elegance meets contemporary design. Curated pieces for the discerning individual.
+                        Premium hoodies, shirts, and jerseys for the modern lifestyle. Quality and style in every piece.
                     </p>
                 </div>
                 
@@ -172,6 +160,9 @@
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <div id="back-to-top-container"></div>
+    
     <script src="script.js"></script>
   </body>
 </html>
