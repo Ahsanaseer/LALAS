@@ -1,6 +1,20 @@
 // ===================== REUSABLE COMPONENTS FOR LALAS WEBSITE =====================
 
 // Navigation Component
+function updateThemeLogos(theme) {
+  if (typeof document === 'undefined') return;
+  const themeLogos = document.querySelectorAll('.theme-logo');
+  themeLogos.forEach(logo => {
+    const lightSrc = logo.getAttribute('data-light');
+    const darkSrc = logo.getAttribute('data-dark');
+    if (theme === 'light' && lightSrc) {
+      logo.src = lightSrc;
+    } else if (theme === 'dark' && darkSrc) {
+      logo.src = darkSrc;
+    }
+  });
+}
+
 function createNavigation(currentPage = '') {
   const basePath = currentPage === 'index.html' || currentPage === '' ? '' : 'index.html';
   return `
@@ -8,19 +22,28 @@ function createNavigation(currentPage = '') {
     <header class="header">
         <div class="header-container">
             <div class="header-flex">
-                <div class="header-spacer"></div>
-                
                 <div class="header-logo">
                     <a href="${basePath || 'index.html'}">
-                        <img src="PICS/lalas logo dm.png" alt="LALAS" class="logo-image" id="logoImage">
+                        <img src="PICS/lalas logo dm.png" alt="LALAS" class="logo-image theme-logo" id="logoImage" data-light="PICS/lalas logo lm.png" data-dark="PICS/lalas logo dm.png">
                     </a>
                 </div>
                 
                 <div class="header-nav">
                     <nav class="desktop-nav">
-                        <a href="${basePath || 'index.html'}#new" class="nav-link">NEW</a>
-                        <a href="${basePath || 'index.html'}#collections" class="nav-link">COLLECTIONS</a>
-                        <a href="${basePath || 'index.html'}#about" class="nav-link">ABOUT</a>
+                        <a href="/" class="nav-link"><span class="nav-link-text">HOME</span></a>
+                        <div class="nav-item nav-item-dropdown">
+                            <a href="${basePath || 'index.html'}#categories" class="nav-link nav-link-dropdown" aria-haspopup="true"><span class="nav-link-text">SHOP BY CATEGORY</span></a>
+                            <div class="nav-dropdown" role="menu">
+                                <a href="${basePath || 'index.html'}#categories" class="nav-dropdown-link" role="menuitem"><span class="nav-dropdown-text">Men</span></a>
+                                <a href="${basePath || 'index.html'}#categories" class="nav-dropdown-link" role="menuitem"><span class="nav-dropdown-text">Women</span></a>
+                                <a href="${basePath || 'index.html'}#categories" class="nav-dropdown-link" role="menuitem"><span class="nav-dropdown-text">Unisex</span></a>
+                                <a href="${basePath || 'index.html'}#categories" class="nav-dropdown-link" role="menuitem"><span class="nav-dropdown-text">Jerseys</span></a>
+                                <a href="${basePath || 'index.html'}#categories" class="nav-dropdown-link" role="menuitem"><span class="nav-dropdown-text">Oversized Shirts</span></a>
+                                <a href="${basePath || 'index.html'}#categories" class="nav-dropdown-link" role="menuitem"><span class="nav-dropdown-text">Printed Shirts</span></a>
+                            </div>
+                        </div>
+                        <a href="${basePath || 'index.html'}#new" class="nav-link"><span class="nav-link-text">NEW ARRIVALS</span></a>
+                        <a href="${basePath || 'index.html'}#featured" class="nav-link"><span class="nav-link-text">FEATURED</span></a>
                     </nav>
                     
                     <button class="theme-toggle-btn" id="themeToggle">
@@ -72,9 +95,25 @@ function createNavigation(currentPage = '') {
         
         <div class="mobile-menu hidden" id="mobileMenu">
             <nav class="mobile-nav">
-                <a href="${basePath || 'index.html'}#new" class="mobile-nav-link">NEW</a>
-                <a href="${basePath || 'index.html'}#collections" class="mobile-nav-link">COLLECTIONS</a>
-                <a href="${basePath || 'index.html'}#about" class="mobile-nav-link">ABOUT</a>
+                <a href="${basePath || 'index.html'}#home" class="mobile-nav-link">Home</a>
+                <div class="mobile-nav-item mobile-nav-dropdown">
+                    <button class="mobile-nav-link mobile-nav-toggle" type="button" data-target="mobileCategoryMenu" aria-expanded="false">
+                        Shop by Category
+                        <span class="mobile-nav-toggle-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="mobile-submenu" id="mobileCategoryMenu">
+                        <a href="${basePath || 'index.html'}#categories" class="mobile-submenu-link">Men</a>
+                        <a href="${basePath || 'index.html'}#categories" class="mobile-submenu-link">Women</a>
+                        <a href="${basePath || 'index.html'}#categories" class="mobile-submenu-link">Unisex</a>
+                        <a href="${basePath || 'index.html'}#categories" class="mobile-submenu-link">Jerseys</a>
+                        <a href="${basePath || 'index.html'}#categories" class="mobile-submenu-link">Oversized Shirts</a>
+                        <a href="${basePath || 'index.html'}#categories" class="mobile-submenu-link">Printed Shirts</a>
+                    </div>
+                </div>
+                <a href="${basePath || 'index.html'}#new" class="mobile-nav-link">New Arrivals</a>
+                <a href="${basePath || 'index.html'}#featured" class="mobile-nav-link">Featured</a>
+                <a href="${basePath || 'index.html'}#best" class="mobile-nav-link">Best Sellers</a>
+                <a href="${basePath || 'index.html'}#collections" class="mobile-nav-link">Collections</a>
             </nav>
         </div>
     </header>
@@ -90,7 +129,7 @@ function createFooter() {
         <div class="footer-container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <h3 class="footer-logo">LALAS</h3>
+                    <img src="PICS/lalas logo dm.png" alt="LALAS" class="footer-logo theme-logo" data-light="PICS/lalas logo lm.png" data-dark="PICS/lalas logo dm.png">
                     <p class="footer-description">
                         Premium hoodies, shirts, and jerseys for the modern lifestyle. Quality and style in every piece.
                     </p>
@@ -155,8 +194,10 @@ function createBackToTopButton() {
   return `
     <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="18 15 12 9 6 15"></polyline>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5L6 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 5l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 5v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
     </button>
   `;
@@ -188,7 +229,6 @@ function initializeNavigation() {
   if (themeToggle) {
     const sunIcon = themeToggle.querySelector('.sun-icon');
     const moonIcon = themeToggle.querySelector('.moon-icon');
-    const logoImage = document.getElementById('logoImage');
     const body = document.body;
     
     // Get saved theme or default to dark
@@ -208,15 +248,14 @@ function initializeNavigation() {
     
     function applyTheme(theme) {
       body.setAttribute('data-theme', theme);
-      
-      // Update logo based on theme
-      if (logoImage) {
+
+      updateThemeLogos(theme);
+
+      if (sunIcon && moonIcon) {
         if (theme === 'light') {
-          logoImage.src = 'PICS/lalas logo lm.png';
           sunIcon.classList.add('hidden');
           moonIcon.classList.remove('hidden');
         } else {
-          logoImage.src = 'PICS/lalas logo dm.png';
           sunIcon.classList.remove('hidden');
           moonIcon.classList.add('hidden');
         }
@@ -249,38 +288,79 @@ function initializeNavigation() {
   if (mobileMenuBtn && mobileMenu) {
     const menuIcon = mobileMenuBtn.querySelector('.menu-icon');
     const closeIcon = mobileMenuBtn.querySelector('.close-icon');
+    const mobileDropdownToggles = mobileMenu.querySelectorAll('.mobile-nav-toggle');
+
+    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+
+    function collapseMobileDropdowns() {
+      mobileDropdownToggles.forEach(toggle => {
+        toggle.setAttribute('aria-expanded', 'false');
+        const targetId = toggle.getAttribute('data-target');
+        if (!targetId) return;
+        const submenu = mobileMenu.querySelector(`#${targetId}`);
+        if (submenu) {
+          submenu.classList.remove('open');
+        }
+      });
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.classList.add('hidden');
+      menuIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      collapseMobileDropdowns();
+    }
+
+    function openMobileMenu() {
+      mobileMenu.classList.remove('hidden');
+      menuIcon.classList.add('hidden');
+      closeIcon.classList.remove('hidden');
+      mobileMenuBtn.setAttribute('aria-expanded', 'true');
+    }
 
     mobileMenuBtn.addEventListener('click', function(e) {
-      e.stopPropagation(); // Prevent the click from bubbling up
+      e.stopPropagation();
       const isOpen = !mobileMenu.classList.contains('hidden');
-      
+
       if (isOpen) {
-        mobileMenu.classList.add('hidden');
-        menuIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
+        closeMobileMenu();
       } else {
-        mobileMenu.classList.remove('hidden');
-        menuIcon.classList.add('hidden');
-        closeIcon.classList.remove('hidden');
+        openMobileMenu();
       }
     });
 
-    // Close mobile menu when clicking on nav links
-    const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
-    mobileNavLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        mobileMenu.classList.add('hidden');
-        menuIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
+    mobileDropdownToggles.forEach(toggle => {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const targetId = toggle.getAttribute('data-target');
+        if (!targetId) return;
+
+        const submenu = mobileMenu.querySelector(`#${targetId}`);
+        if (!submenu) return;
+
+        const isOpen = submenu.classList.contains('open');
+        collapseMobileDropdowns();
+
+        if (!isOpen) {
+          toggle.setAttribute('aria-expanded', 'true');
+          submenu.classList.add('open');
+        }
       });
     });
 
-    // Close mobile menu when clicking outside
+    const mobileNavLinks = mobileMenu.querySelectorAll('a.mobile-nav-link, .mobile-submenu-link');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        closeMobileMenu();
+      });
+    });
+
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.mobile-menu') && !e.target.closest('.mobile-menu-btn') && !mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.add('hidden');
-        menuIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
+        closeMobileMenu();
       }
     });
   }
@@ -338,6 +418,8 @@ function loadComponents(currentPage = '') {
   if (footerContainer) {
     footerContainer.innerHTML = createFooter();
     initializeFooter();
+    const currentTheme = document.body?.getAttribute('data-theme') || localStorage.getItem('theme') || 'dark';
+    updateThemeLogos(currentTheme);
   }
 
   // Load back to top button

@@ -170,6 +170,49 @@ const staticCollections = [
     }
 ];
 
+const staticFaq = [
+    {
+        question: 'What sizes do you offer?',
+        answer: 'Our hoodies, shirts, and jerseys follow a unisex size chart ranging from XS to XXL. For the best fit, check the measurements on each product page before placing your order.'
+    },
+    {
+        question: 'How long does shipping take?',
+        answer: 'Orders are processed within 1-2 business days. Standard domestic shipping takes 3-5 business days, while international orders may take 7-14 business days depending on customs.'
+    },
+    {
+        question: 'Can I return or exchange an item?',
+        answer: 'Absolutely. We accept returns and exchanges within 30 days of delivery as long as the item is unworn, unwashed, and in its original packaging. Start a request through the Returns portal in your order confirmation email.'
+    },
+    {
+        question: 'Do you offer tracking information?',
+        answer: 'Yes, you will receive a tracking link via email as soon as your order ships. You can also log in to your account to view live shipment updates at any time.'
+    },
+    {
+        question: 'How should I care for my LALAS apparel?',
+        answer: 'Turn garments inside out, wash on a cold gentle cycle, and hang dry to preserve prints and fabrics. Avoid bleach and high heat to keep your apparel looking fresh.'
+    },
+    {
+        question: 'What payment methods do you accept?',
+        answer: 'We currently accept major credit and debit cards, Apple Pay, Google Pay, and PayPal. All transactions are securely processed with end-to-end encryption.'
+    },
+    {
+        question: 'Can I change or cancel my order after placing it?',
+        answer: 'We can modify or cancel orders within 60 minutes of purchase. Reach out via live chat or email with your order number and our team will handle the request if the package has not shipped.'
+    },
+    {
+        question: 'Do you restock sold-out items?',
+        answer: 'Yes, core pieces are restocked regularly. Limited edition drops may not return, so subscribe to product notifications on the item page to be alerted first.'
+    },
+    {
+        question: 'Are there any duties or taxes on international orders?',
+        answer: 'International customers are responsible for import duties and local taxes. These fees are determined by your country’s customs office and are not included in our pricing.'
+    },
+    {
+        question: 'How can I contact customer support?',
+        answer: 'Our support team is available Monday to Saturday, 9 AM – 7 PM PST. Use the contact form, email support@lalas.co, or message us on Instagram for quick assistance.'
+    }
+];
+
 // Main initialization
 document.addEventListener('DOMContentLoaded', function() {
     // Note: Theme and header scroll are initialized by components.js
@@ -406,6 +449,10 @@ function simulateLoading() {
     if (collectionsContainer) {
         collectionsContainer.innerHTML = '<div class="loading">Loading...</div>';
     }
+    const faqContainer = document.getElementById('faqList');
+    if (faqContainer) {
+        faqContainer.innerHTML = '<div class="loading">Loading...</div>';
+    }
     
     // Load content after a short delay
     setTimeout(() => {
@@ -414,5 +461,137 @@ function simulateLoading() {
         loadNewArrivals();
         loadBestSellers();
         loadCollections();
+        loadFaqItems();
     }, 500);
+}
+
+function loadFaqItems() {
+    const container = document.getElementById('faqList');
+
+    if (!container) return;
+
+    if (!staticFaq.length) {
+        container.innerHTML = `
+            <div class="no-content">
+                <p>We are curating the most asked questions.</p>
+                <p class="text-sm">Check back soon for quick answers.</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = staticFaq.map(item => `
+        <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+                <span class="faq-question-text">${item.question}</span>
+                <span class="faq-icon" aria-hidden="true">
+                    <svg class="faq-icon-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="faq-answer" hidden>
+                <p>${item.answer}</p>
+            </div>
+        </div>
+    `).join('');
+
+    initFaqAccordion();
+}
+
+function initFaqAccordion() {
+    const items = document.querySelectorAll('.faq-item');
+
+    if (!items.length) return;
+
+    const openFaqItem = (faqItem) => {
+        const button = faqItem.querySelector('.faq-question');
+        const answer = faqItem.querySelector('.faq-answer');
+
+        if (!button || !answer) return;
+
+        faqItem.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
+        answer.removeAttribute('hidden');
+
+        answer.style.maxHeight = '0px';
+        // Force reflow so the browser acknowledges the starting height
+        void answer.offsetHeight;
+
+        const targetHeight = answer.scrollHeight;
+
+        requestAnimationFrame(() => {
+            answer.style.maxHeight = `${targetHeight}px`;
+        });
+
+        const handleTransitionEnd = (event) => {
+            if (event.propertyName !== 'max-height') return;
+            answer.style.maxHeight = 'none';
+            answer.removeEventListener('transitionend', handleTransitionEnd);
+        };
+
+        answer.addEventListener('transitionend', handleTransitionEnd);
+    };
+
+    const closeFaqItem = (faqItem, { immediate = false } = {}) => {
+        const button = faqItem.querySelector('.faq-question');
+        const answer = faqItem.querySelector('.faq-answer');
+
+        if (!button || !answer) return;
+
+        if (!faqItem.classList.contains('open') && !immediate) {
+            return;
+        }
+
+        faqItem.classList.remove('open');
+        button.setAttribute('aria-expanded', 'false');
+
+        if (immediate) {
+            answer.setAttribute('hidden', '');
+            answer.style.maxHeight = '';
+            return;
+        }
+
+        // If the panel was set to 'none', capture the current height before collapsing
+        if (answer.style.maxHeight === 'none' || answer.style.maxHeight === '') {
+            answer.style.maxHeight = `${answer.scrollHeight}px`;
+            // Force reflow to apply the captured height
+            void answer.offsetHeight;
+        }
+
+        requestAnimationFrame(() => {
+            answer.style.maxHeight = '0px';
+        });
+
+        const handleTransitionEnd = (event) => {
+            if (event.propertyName !== 'max-height') return;
+            answer.setAttribute('hidden', '');
+            answer.style.maxHeight = '';
+            answer.removeEventListener('transitionend', handleTransitionEnd);
+        };
+
+        answer.addEventListener('transitionend', handleTransitionEnd);
+    };
+
+    items.forEach(item => {
+        const button = item.querySelector('.faq-question');
+
+        if (!button) return;
+
+        button.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+
+            if (isOpen) {
+                closeFaqItem(item);
+                return;
+            }
+
+            items.forEach(otherItem => {
+                if (otherItem === item) return;
+                closeFaqItem(otherItem);
+            });
+
+            openFaqItem(item);
+        });
+    });
 }
