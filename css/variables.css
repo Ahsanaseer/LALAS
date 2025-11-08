@@ -1,0 +1,67 @@
+/* ===================================
+   Theme Variables
+   =================================== */
+:root {
+  /* Site palette - dark theme defaults */
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #18181b;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --text-faded: rgba(255, 255, 255, 0.4);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --hero-bg: linear-gradient(to bottom, #000000, #18181b, #000000);
+
+  /* Auth experience defaults */
+  --auth-shell-bg: #050505;
+  --auth-panel-bg: #0f0f0f;
+  --auth-border-color: rgba(255, 255, 255, 0.08);
+  --auth-input-border: rgba(255, 255, 255, 0.16);
+  --auth-input-bg: rgba(255, 255, 255, 0.03);
+  --auth-input-hover: rgba(255, 255, 255, 0.07);
+  --auth-input-placeholder: rgba(255, 255, 255, 0.5);
+  --auth-muted: rgba(255, 255, 255, 0.65);
+  --auth-highlight: #f8fafc;
+}
+
+/* ===================================
+   Light Theme Overrides
+   =================================== */
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #000000;
+  --text-secondary: rgba(0, 0, 0, 0.8);
+  --text-muted: rgba(0, 0, 0, 0.6);
+  --text-faded: rgba(0, 0, 0, 0.4);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --hero-bg: linear-gradient(to bottom, #6c757d, #495057);
+
+  --auth-shell-bg: #f5f6f8;
+  --auth-panel-bg: #ffffff;
+  --auth-border-color: rgba(15, 23, 42, 0.08);
+  --auth-input-border: rgba(15, 23, 42, 0.12);
+  --auth-input-bg: #ffffff;
+  --auth-input-hover: rgba(15, 23, 42, 0.05);
+  --auth-input-placeholder: rgba(15, 23, 42, 0.45);
+  --auth-muted: rgba(15, 23, 42, 0.65);
+  --auth-highlight: #0f172a;
+}
+
+/* ===================================
+   Dark Theme Explicit Overrides
+   =================================== */
+[data-theme="dark"] {
+  --auth-shell-bg: #050505;
+  --auth-panel-bg: #0f0f0f;
+  --auth-border-color: rgba(255, 255, 255, 0.08);
+  --auth-input-border: rgba(255, 255, 255, 0.16);
+  --auth-input-bg: rgba(255, 255, 255, 0.03);
+  --auth-input-hover: rgba(255, 255, 255, 0.07);
+  --auth-input-placeholder: rgba(255, 255, 255, 0.5);
+  --auth-muted: rgba(255, 255, 255, 0.65);
+  --auth-highlight: #f8fafc;
+}
+

@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login / Sign Up - LALAS</title>
     <link rel="icon" type="image/png" href="PICS/Lalas Logo Name.png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <script src="components.js"></script>
+    <script src="js/components.js"></script>
   </head>
   <body class="auth-body">
     <div id="nav-container"></div>
@@ -157,40 +159,7 @@
     <div id="footer-container"></div>
     <div id="back-to-top-container"></div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const body = document.body;
-        const applyTheme = (theme) => {
-          body.setAttribute('data-theme', theme);
-          localStorage.setItem('theme', theme);
-          if (typeof updateThemeLogos === 'function') {
-            updateThemeLogos(theme);
-          }
-        };
-
-        const initialTheme = localStorage.getItem('theme') || 'dark';
-        applyTheme(initialTheme);
-
-        const loginForm = document.getElementById('loginForm');
-        const passwordInput = document.getElementById('loginPassword');
-        const togglePasswordBtn = document.querySelector('.auth-input-toggle');
-        const eyeOpen = togglePasswordBtn?.querySelector('.auth-eye-open');
-        const eyeClosed = togglePasswordBtn?.querySelector('.auth-eye-closed');
-
-        togglePasswordBtn?.addEventListener('click', () => {
-          const isPassword = passwordInput.type === 'password';
-          passwordInput.type = isPassword ? 'text' : 'password';
-          eyeOpen?.classList.toggle('hidden', !isPassword);
-          eyeClosed?.classList.toggle('hidden', isPassword);
-        });
-
-        loginForm?.addEventListener('submit', (event) => {
-          event.preventDefault();
-          const formData = new FormData(loginForm);
-          console.log('Login submitted', Object.fromEntries(formData));
-        });
-      });
-    </script>
+    <script src="js/login.js"></script>
   </body>
 </html>
 
